@@ -9,3 +9,4 @@ export SWARM_WORKERS_PREFIX=finantic-swarm-node-
 export SECURITY_GROUP_ID=sg-b237a7c9
 export MANAGER_IP=172.31.25.219
 export TOKEN=SWMTKN-1-3i1f6pc3vp1xzu9dvq5rl6x40ymxlsabhu1gv1cp9svl5i4dfm-75h0prm825bphk9il12ah29m3
+export REGISTRY_NAME=finantic-registry
