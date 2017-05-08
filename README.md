@@ -108,7 +108,7 @@ docker run -d -p 5000:5000 \
   -e REGISTRY_AUTH="htpasswd"   \
   -e REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"   \
   -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd   \
-  -v /etc/letsencrypt/live/registry.finantic.com:/certs   \
+  -v /etc/letsencrypt/live/registry.finantic.co:/certs   \
   -v /data/registry/registry:/var/lib/registry   \
   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt   \
   -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key   \
