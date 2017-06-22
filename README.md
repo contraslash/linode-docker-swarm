@@ -114,3 +114,13 @@ docker run -d -p 5000:5000 \
   -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key   \
   registry:2
 ```
+
+> Troubleshooting
+
+After removing a machine and recreating a machine with the same name you get this error:
+
+```
+Error with pre-create check: "There is already a keypair with the name <Machine name>.  Please either remove that keypair or use a different machine name."
+```
+
+Go to AWS Console -> EC2 -> Network & Security -> Key Pairs and Delete the keys
