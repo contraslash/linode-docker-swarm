@@ -1,10 +1,22 @@
-# Provisionate a aws cluster
+# Provisionate a linode cluster UNSTABLE
 
-> Based on [this gist](https://gist.github.com/ghoranyi/f2970d6ab2408a8a37dbe8d42af4f0a5)
+> Based on [this repo](https://github.com/contraslash/aws-docker-swarm)
 
-First edit the envvars.sh with the proper configuration.
+Before you begin, you need to install [Docker Machine Linode's Driver](https://github.com/taoh/docker-machine-linode)
 
-If you don't have a configuration, create a new VPC at [AWS VPC](https://us-west-2.console.aws.amazon.com/vpc/home), following the [docker official instructions for aws](https://docs.docker.com/docker-for-aws/faqs/#recommended-vpc-and-subnet-setup)
+```
+go get github.com/taoh/docker-machine-linode
+cd $GOPATH/src/github.com/taoh/docker-machine-linode
+make
+make install
+```
+
+And then, create an [API Key](https://www.linode.com/docs/platform/api/api-key/)
+
+After, I recommend to be familiar with [Linode Options for distributions, datacenters and plans](https://www.linode.com/docs/platform/linode-cli#setup)
+
+Now, you can edit the envvars.sh with the proper configuration.
+
 
 Then load the env vars
 ```
@@ -13,11 +25,13 @@ source envvars.sh
 
 Then execute the creating script
 
+> # Having Issues with Docker Daemon in Ubuntu 16.04 With Kernel 4.04
+
 ```
 bash create.sh
 ```
 
-After this, you should have a cluster provioned with docker.
+After this, you should have a cluster provisioned with docker.
 
 To create a swarm first you need to get the internal IP of the manager node.
 
@@ -30,27 +44,6 @@ With that IP in mind create a swarm in the manager node
 ```
 eval $(docker-machine env $MANAGER_NAME)
 docker swarm init --advertise-addr <REPLACE WITH THE IP>
-```
-
-Now we need to allow the comunication between some ports in the cluster, so first get the id from the security group-id
-
-```
-aws ec2 describe-security-groups --filter "Name=group-name,Values=$SECURITY_GROUP"
-```
-
-Then store this id in SECURITY_GROUP_ID
-
-Personally I recommend to add in envvars.sh and reload the configuration
-
-```
-echo "export SECURITY_GROUP_ID=<PUT THE ID HERE>" >> envvars.sh
-source envvars.sh
-```
-
-Then execute security_group.sh
-
-```
-bash security_group.sh
 ```
 
 And finally join every node to the swarm.
